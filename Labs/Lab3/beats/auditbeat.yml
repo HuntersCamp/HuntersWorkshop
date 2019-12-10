@@ -1,0 +1,42 @@
+# Input
+auditbeat.modules:
+  - module: auditd
+    audit_rule_files: [ '${path.config}/audit.rules.d/*.conf' ]
+  - module: file_integrity
+    paths:
+    - /bin
+    - /usr/bin
+    - /sbin
+    - /usr/sbin
+    - /etc
+    scan_at_start: true
+    scan_rate_per_sec: 50 MiB
+    max_file_size: 1GiB
+  - module: system
+    datasets:
+      - host
+      - login
+      - package
+      - process
+      - socket  
+      - user    
+    state.period: 12h
+    user.detect_password_changes: true
+    login.wtmp_file_pattern: /var/log/wtmp*
+    login.btmp_file_pattern: /var/log/btmp*
+
+# Processors
+processors:
+  - add_host_metadata: ~
+
+# Kibana Instance
+setup.kibana:
+  host: "192.168.40.10:5601"
+  username: "elastic"
+  password: "changeme"
+
+# Elasticsearch Instance
+output.elasticsearch:
+  hosts: ["192.168.40.10:9200"]
+  username: "elastic"
+  password: "changeme"

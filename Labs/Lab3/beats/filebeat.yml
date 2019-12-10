@@ -1,0 +1,30 @@
+# Filebeat Inputs
+filebeat.modules:
+- module: system
+  syslog:
+    enabled: true
+    var.paths: ["/var/log/messages*"]
+  auth:
+    enabled: true
+    var.paths: ["/var/log/secure*"]
+    
+filebeat.inputs:
+- type: log
+  paths:
+    - /var/log/yum.log
+
+# Processors
+processors:
+  - add_host_metadata: ~
+
+# Kibana Instance
+setup.kibana:
+  host: "192.168.40.10:5601"
+  username: "elastic"
+  password: "changeme"
+  
+# Elasticsearch Instance
+output.elasticsearch:
+  hosts: ["192.168.40.10:9200"]
+  username: "elastic"
+  password: "changeme"
