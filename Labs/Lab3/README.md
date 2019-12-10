@@ -34,7 +34,63 @@ docker ps -a
 
 ### Deploy Beats
 
-Beats ship the logs to the Elastic Stack
+Beats ship the logs to the Elastic Stack. We use the different beats to ship logs and metrics to the Elastic Stack.
+
+#### Filebeat
+
+The Filebeat has a wide variety of input methods. It was originally designed to ship the logs files. But there were more and more modules released over time. Now it can ship pretty much everything!
+
+#### Metricbeat
+
+The Metricbeat ships host metrics and health checks to the Elastic Stack. With these can be viewed under the infrastructure tab in Kibana.
+
+#### Packetbeat
+
+Packetbeat acts as a Netflow sensor on the host. It ships the flows, DNS lookups and TLS handshakes to the Elastic Stack.
+
+#### Auditbeat
+
+The Auditbeat handles everything concerning the audit of the system. File integrity, login attempts, what ever you want!
+
+#### Installation
+
+Install the beats
+
+##### Centos 7
+
+```bash
+# Add the rpm key
+rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+# Add repository
+vi /etc/yum.repos.d/elastic.repo
+
+[elasticsearch-7.x]
+name=Elasticsearch repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+
+# Install beats
+yum install filebeat auditbeat packetbeat metricbeat
+
+# Configure beats
+vi /etc/<beat>/<beat>.yml
+
+# Setup Beat
+<beat> setup -e
+```
+
+##### Windows
+
+1. Download Beat from Elastic website
+2. Extract Beat
+3. Put the beat into`C:\Program Files\Beats`
+4. Set the Powershell execution policy `set-executionpolicy unrestricted`
+5. Execute the installation Powershell
 
 ### Forward Logs to ELK
 

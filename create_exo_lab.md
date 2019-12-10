@@ -84,9 +84,15 @@ Now that we have configured everything that we need we can create our instances:
 | Hostname        | elk        |
 | --------------- | ---------- |
 | Template        | Centos 7.6 |
-| Instance Type   | Medium     |
+| Instance Type   | Large      |
 | Disk            | 50 GB      |
 | Zone            | CH-DK-2    |
 | Private Network | Internal   |
 | IPv6            | Disabled   |
 | Security Groups | Internal   |
+
+**After Setup Steps**
+
+1. Connect via SSH
+2. Create personal user
+3. Add personal user to wheel group
