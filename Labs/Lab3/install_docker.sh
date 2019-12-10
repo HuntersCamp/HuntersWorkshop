@@ -15,7 +15,7 @@ fi
 
 # Define User Variables
 
-DOCKERUSER=stefan.seiler
+DOCKERUSER=centos
 
 ##### Start Script #####
 
@@ -28,3 +28,4 @@ systemctl enable docker
 curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod a+x /usr/local/bin/docker-compose
 usermod -aG docker $DOCKERUSER
+sysctl -w vm.max_map_count=262144
